@@ -1,0 +1,50 @@
+# Vacuum Cleaner Simulation
+
+
+## Goal
+
+The goal of this project is to build a simulation environment for autonomous vacuum cleaners. The goal of a vacuum cleaner should be
+
+1- To clean as much of the dirt as possible.
+2- To go back to the home station before the time is over.
+3- To use as little memory as possible for the agent.
+
+## Simulation components
+
+The goal of the simulation is that of finding a good strategy for cleaning the area and finishing in the charging station.
+
+
+### The map
+
+A simulation happens in a map of the environment. There is an class (Map) that models this environment and keeps track of the dirt, the location of the obstacles and the position of interesting objects:
+
+1- The vacuum cleaner, or agent.
+2- The charging station.
+
+The map is essentially a matrix and the agent can move from the current cell to one of its 4 neighbors. If the agent tries to move to a cell occupied by an obstacle, nothing happens (the agent wastes time, however).
+
+The dirt, if any, goes away from a cell once the agent moves over it.
+
+
+### The agent
+
+The job of cleaning is left to the vacuum cleaner, aka 'the agent'. This is modeled in the Agent class. Each agent can move to the 4 neighboring cells or do nothing. The agent can read the remaining battery life and the remaining time (but, of course, cannot change them). There is a charging stations somewhere and if the agent stops (does nothing) over the charging station, the battery gets charged, one unit per time.
+
+The agent feels the presence of obstacles in the 4 neighboring cells. Also, the agent feels the (noisy) signal from the charging station that models the agent-station distance.
+
+### The charging station
+
+No matter how good a vacuum cleaner can clean the floor. If the vacuum cleaner does not finish its job in the charging station, a human will have to move it there. Since humans are lazy, the vacuum cleaner gets a big penalty for not ending up where it should.
+
+
+### The score
+
+At the end of the available time the agent gets a score for the cleaning job. The final score is given by:
+
+Score = 0.5 (R + H)
+
+where
+- R: the ratio of 'removed dirt' / 'initial dirt'.
+- H: 1 if the agent is in the charging station, 0 otherwise.
+
+The score ranges between 0 and 1 and 1 is the best the agent can hope for.

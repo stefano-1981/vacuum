@@ -1,0 +1,2 @@
+g++ -std=c++11 tests_main.cc tests.cc agent.cc agent_test.cc battery.cc battery_test.cc geometry.cc geometry_test.cc map.cc map_test.cc perception.cc perception_test.cc utils.cc -o run_tests
+./run_tests
